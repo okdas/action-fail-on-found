@@ -1,2 +1,5 @@
-Determinisitic result is important!
+Good text
 
+TODO_DISCUSS_IN_THIS_COMMIT
+
+TODO_IN_THIS_COMMIT
