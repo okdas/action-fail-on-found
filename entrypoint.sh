@@ -9,7 +9,9 @@ fi
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
-ag --vimgrep "${INPUT_PATTERN}" --ignore "${INPUT_IGNORE}" \
+ls -la
+
+ag --vimgrep "${INPUT_PATTERN}" --ignore "${INPUT_IGNORE}" . \
   | reviewdog -efm="%f:%l:%c: %m" \
       -name="linter-name (fail-on-found)" \
       -reporter="${INPUT_REPORTER:-github-pr-check}" \
