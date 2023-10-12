@@ -4,9 +4,12 @@ on:
     branches:
       - master
   pull_request:
+permissions:
+  pull-requests: write
+
 jobs:
   test-check:
-    name: runner / <linter-name> (github-check)
+    name: runner / fail-on-found (github-check)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,11 +18,11 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
           level: info
-          locale: "US"
+          pattern: "TODO_DISCUSS_IN_THIS_COMMIT|TODO_IN_THIS_COMMIT"
 
   test-pr-check:
     if: github.event_name == 'pull_request'
-    name: runner / <linter-name> (github-pr-check)
+    name: runner / fail-on-found (github-pr-check)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,12 +31,12 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
           level: warning
-          locale: "US"
+          pattern: "TODO_DISCUSS_IN_THIS_COMMIT|TODO_IN_THIS_COMMIT"
           workdir: ./testdata/subdir/
 
   test-pr-review:
     if: github.event_name == 'pull_request'
-    name: runner / <linter-name> (github-pr-review)
+    name: runner / fail-on-found (github-pr-review)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,5 +45,6 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           level: error
-          locale: "US"
+          pattern: "TODO_DISCUSS_IN_THIS_COMMIT|TODO_IN_THIS_COMMIT"
+          ignore: README.md
           reviewdog_flags: -filter-mode=file -fail-on-error
