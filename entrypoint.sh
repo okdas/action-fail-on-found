@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+set -x 
 
 if [ -n "${GITHUB_WORKSPACE}" ] ; then
   cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit
