@@ -1,5 +1,5 @@
-Determinisitic result is important.
+Good text
 
-colour # <= Check -locale
+TODO_DISCUSS_IN_THIS_COMMIT
 
-langauge
+TODO_IN_THIS_COMMIT

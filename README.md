@@ -11,15 +11,7 @@
 ![github-pr-review demo](https://user-images.githubusercontent.com/3797062/73162963-4b8e2b00-4132-11ea-9a3f-f9c6f624c79f.png)
 ![github-pr-check demo](https://user-images.githubusercontent.com/3797062/73163032-70829e00-4132-11ea-8481-f213a37db354.png)
 
-This is a template repository for [reviewdog](https://github.com/reviewdog/reviewdog) action with release automation.
-Click `Use this template` button to create your reviewdog action :dog:!
-
-If you want to create your own reviewdog action from scratch without using this
-template, please check and copy release automation flow.
-It's important to manage release workflow and sync reviewdog version for all
-reviewdog actions.
-
-This repo contains a sample action to run [misspell](https://github.com/client9/misspell).
+This repo contains a sample action to run [ag](https://github.com/ggreer/the_silver_searcher).
 
 ## Input
 
@@ -52,9 +44,12 @@ inputs:
   reviewdog_flags:
     description: 'Additional reviewdog flags'
     default: ''
-  ### Flags for <linter-name> ###
-  locale:
-    description: '-locale flag of misspell. (US/UK)'
+  ### Flags for fail-on-found ###
+  pattern:
+    description: 'AG search pattern (https://github.com/ggreer/the_silver_searcher)'
+    default: ''
+  ignore:
+    description: 'Ignore files/directories matching this pattern (literal file/directory names also allowed)'
     default: ''
 ```
 
@@ -65,13 +60,12 @@ inputs:
 name: reviewdog
 on: [pull_request]
 jobs:
-  # TODO: change `linter_name`.
   linter_name:
-    name: runner / <linter-name>
+    name: runner / fail-on-found
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: reviewdog/action-template@v1
+      - uses: okdas/action-fail-on-found@v1
         with:
           github_token: ${{ secrets.github_token }}
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
@@ -79,6 +73,8 @@ jobs:
           # Change reporter level if you need.
           # GitHub Status Check won't become failure with warning.
           level: warning
+          pattern: TODO_DISCUSS_IN_THIS_COMMIT|TODO_IN_THIS_COMMIT
+          ignore: .git
 ```
 
 ## Development
