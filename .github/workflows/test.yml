@@ -4,6 +4,10 @@ on:
     branches:
       - master
   pull_request:
+permissions:
+  checks: write
+  contents: read
+  pull-requests: read
 jobs:
   test-check:
     name: runner / fail-on-found (github-check)
