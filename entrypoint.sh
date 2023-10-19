@@ -9,6 +9,10 @@ fi
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
+# Run AG to output the results to stdout
+ag --vimgrep "${INPUT_PATTERN}" --ignore "${INPUT_IGNORE}" .
+
+# Run it again, but this time piping the results to reviewdog
 ag --vimgrep "${INPUT_PATTERN}" --ignore "${INPUT_IGNORE}" . \
   | reviewdog -efm="%f:%l:%c:%m" \
       -name="linter-name (fail-on-found)" \
