@@ -10,7 +10,7 @@ fi
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
 # Run AG to output the results to stdout
-ag --vimgrep "${INPUT_PATTERN}" --ignore "${INPUT_IGNORE}" .
+ag --vimgrep "${INPUT_PATTERN}" --ignore "${INPUT_IGNORE}" . || true
 
 # Run it again, but this time piping the results to reviewdog
 ag --vimgrep "${INPUT_PATTERN}" --ignore "${INPUT_IGNORE}" . \
